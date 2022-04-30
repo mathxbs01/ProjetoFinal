@@ -55,7 +55,7 @@
             if ($conn->connect_error){
                 die("Connection failed: " . $conn->connect_error);
             }
-            $sql = "INSERT INTO experienciaprofissional (idusuario, inicio, fim, descricao)
+            $sql = "INSERT INTO outrasformacoes (idusuario, inicio, fim, descricao)
             VALUES ('".$this->idusuario."','".$this->inicio."','".$this->fim."','".$this->descricao."')";
 
             if ($conn->query($sql) === TRUE){
@@ -77,7 +77,7 @@
                 die("Connection failed: " . $conn->connect_error);
             }
 
-            $sql = "DELETE FROM experienciaprofissional WHERE idoutrasformacoes = '".$id."';";
+            $sql = "DELETE FROM outrasformacoes WHERE idoutrasformacoes = '".$id."';";
             
             if ($conn->query($sql) === TRUE) {
                 $conn->close();
