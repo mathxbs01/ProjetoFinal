@@ -1,12 +1,11 @@
 <?php
 
-class ExperienciaProfissional
+class FormacaoAcad
 {
     private $id;
     private $idusuario;
     private $inicio;
     private $fim;
-    private $empresa;
     private $descricao;
     
   
@@ -49,17 +48,7 @@ class ExperienciaProfissional
         return $this->fim;
     }
 
-    //Empresa
-    public function setEmpresa($empresa)
-    {
-        $this->empresa = $empresa;
-    }
-    public function getEmpresa()
-    {
-        return $this->empresa;
-    }
-
-    //Descrição
+    //Data de nascimento
     public function setDescricao($descricao)
     {
         $this->descricao = $descricao;
@@ -80,8 +69,8 @@ class ExperienciaProfissional
             die("Connection failed: " . $conn->connect_error);
         }
 
-       $sql = "INSERT INTO experienciaprofissional (idusuario, inicio, fim, empresa, descricao) 
-        VALUES ('".$this->idusuario."','".$this->inicio."','".$this->fim."','".$this->empresa."','".$this->descricao."')";
+       $sql = "INSERT INTO formacaoacademica (idusuario, inicio, fim, descricao) 
+        VALUES ('".$this->idusuario."','".$this->inicio."','".$this->fim."','".$this->descricao."')";
 
       
         if ($conn->query($sql) === true) {
@@ -105,7 +94,7 @@ class ExperienciaProfissional
             die("Connection failed: " . $conn->connect_error);
         }
 
-       $sql = "DELETE FROM experienciaprofissional WHERE idexperienciaprofissional = '".$id ."';";
+       $sql = "DELETE FROM formacaoacademica WHERE idformacaoAcademica = '".$id ."';";
 
       
         if ($conn->query($sql) === true) {
@@ -118,7 +107,7 @@ class ExperienciaProfissional
             return false;
         }
     }
-    public function listaExperiencias($idusuario)
+    public function listaFormacoes($idusuario)
     {
         require_once 'ConexaoBD.php';   
         
@@ -128,10 +117,30 @@ class ExperienciaProfissional
             die("Connection failed: " . $conn->connect_error);
         } 
 
-        $sql = "SELECT * FROM experienciaProfissional WHERE idusuario =  '".$idusuario."'" ;
+        $sql = "SELECT * FROM formacaoacademica WHERE idusuario =  '".$idusuario."'" ;
         $re = $conn->query($sql);
         $conn->close();
         return $re;
+    }
+
+    public function atualizarBD()
+    {
+        require_once 'ConexaoBD.php';   
+        $con = new ConexaoBD();
+        $conn = $con->conectar();
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        } 
+        $sql = "UPDATE usuario SET nome = '".$this->nome."', cpf = '". $this->cpf."', dataNascimento = '". $this->dataNascimento."',
+        email='".$this->email."'  WHERE idusuario ='". $this->id. "'"    ;
+        if ($conn->query($sql) === TRUE) {
+            $conn->close();
+            return TRUE;
+           
+        } else {
+            $conn->close();
+            return FALSE;
+        }
     }
 }
 ?>

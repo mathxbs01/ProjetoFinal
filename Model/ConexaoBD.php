@@ -1,13 +1,18 @@
 <?php
-class ConexaoBD{
-    private $serverName = "localhost";
-    private $userName = "root";
-    private $password = "";
-    private $dbName = "projeto_final";
 
-    public function conectar(){
-        $conn = new mysqli($this->serverName, $this->userName, $this->password, $this->dbName);
+class ConexaoBD{
+    
+    private $servername = "localhost";
+    private $username = "root";
+    private $password = "usbw";
+    private $dbname = "projeto_final";
+
+    public function conectar()
+    {
+        $conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
         return $conn;
-    }
+    }   
+
 }
+
 ?>
